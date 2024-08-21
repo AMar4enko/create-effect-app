@@ -1,0 +1,79 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "organizeImports": { "enabled": true },
+  "formatter": {
+    "indentWidth": 2,
+    "indentStyle": "space"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "complexity": {
+        "noBannedTypes": "error",
+        "noUselessThisAlias": "error",
+        "noUselessTypeConstraint": "error",
+        "noVoid": "off",
+        "useLiteralKeys": "error"
+      },
+      "correctness": {
+        "noConstAssign": "off",
+        "noGlobalObjectCalls": "off",
+        "noInvalidConstructorSuper": "off",
+        "noInvalidNewBuiltin": "off",
+        "noNewSymbol": "off",
+        "noPrecisionLoss": "error",
+        "noSetterReturn": "off",
+        "noUndeclaredVariables": "off",
+        "noUnreachable": "off",
+        "noUnreachableSuper": "off",
+        "noUnsafeFinally": "error",
+        "noUnusedImports": "off",
+        "noUnusedLabels": "error",
+        "noUnusedVariables": "off",
+        "useArrayLiterals": "off",
+        "useIsNan": "error"
+      },
+      "security": { "noGlobalEval": "error" },
+      "style": {
+        "noArguments": "error",
+        "noInferrableTypes": "error",
+        "noNamespace": "error",
+        "noVar": "error",
+        "useAsConstAssertion": "error",
+        "useConsistentArrayType": "error",
+        "useConst": "error",
+        "useForOf": "error",
+        "useShorthandFunctionType": "error",
+        "useTemplate": "warn"
+      },
+      "suspicious": {
+        "noDuplicateCase": "error",
+        "noDuplicateClassMembers": "off",
+        "noDuplicateObjectKeys": "off",
+        "noDuplicateParameters": "off",
+        "noEmptyBlockStatements": "error",
+        "noEmptyInterface": "off",
+        "noExplicitAny": "error",
+        "noExtraNonNullAssertion": "error",
+        "noFallthroughSwitchClause": "error",
+        "noFunctionAssign": "off",
+        "noImportAssign": "off",
+        "noMisleadingInstantiator": "error",
+        "noRedeclare": "off",
+        "noUnsafeDeclarationMerging": "error",
+        "noUnsafeNegation": "off",
+        "useGetterReturn": "off",
+        "useNamespaceKeyword": "error"
+      }
+    },
+    "ignore": ["**/*.d.ts", "**/*.js", "node_modules/**/*"]
+  },
+  "javascript": {
+    "globals": [],
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  },
+  "overrides": [{ "include": ["./packages/**/*"] }]
+}

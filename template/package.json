@@ -1,0 +1,42 @@
+{
+  "name": "project-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@effect/eslint-plugin": "~0.1.2",
+    "@stylistic/eslint-plugin": "~2.3.0",
+    "@typescript-eslint/eslint-plugin": "~7.15.0",
+    "@typescript-eslint/parser": "~7.15.0",
+    "eslint": "~8.57.0",
+    "eslint-import-resolver-typescript": "~3.6.1",
+    "eslint-plugin-codegen": "~0.28.0",
+    "eslint-plugin-deprecation": "~2.0.0",
+    "eslint-plugin-disable-autofix": "^5.0.1",
+    "eslint-plugin-import": "~2.29.1",
+    "eslint-plugin-simple-import-sort": "~12.1.0",
+    "eslint-plugin-sort-destructure-keys": "~2.0.0",
+    "eslint-plugin-unused-imports": "~4.0.0",
+    "lint-staged": "^15.2.7",
+    "typescript": "^5.4",
+    "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "@effect/cli": "^0.41.1",
+    "@effect/platform": "^0.62.1",
+    "@effect/platform-browser": "^0.41.1",
+    "@effect/platform-bun": "^0.42.1",
+    "@effect/platform-node": "^0.57.1",
+    "@effect/schema": "^0.71.0",
+    "@types/node": "^22.4.1",
+    "effect": "^3.6.4"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "project-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "tsx": "^4.17.0",
+    "typescript": "^5.4"
+  },
+  "dependencies": {
+    "@effect/cli": "^0.41.1",
+    "@effect/platform": "^0.62.1",
+    "@effect/platform-browser": "^0.41.1",
+    "@effect/platform-bun": "^0.42.1",
+    "@effect/platform-node": "^0.57.1",
+    "@effect/schema": "^0.71.0",
+    "@types/node": "^22.4.1",
+    "effect": "^3.6.4"
+  }
+}
