@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/AMar4enko/create-effect-app/compare/create-effect-app-v1.0.9...create-effect-app-v1.0.10) (2024-08-22)
+
+
+### Bug Fixes
+
+* CI/CD ([b0c4db0](https://github.com/AMar4enko/create-effect-app/commit/b0c4db0fcc00f6efa1c3d9d19aabd8df9115c65e))
+
 ## [1.0.9](https://github.com/AMar4enko/create-effect-app/compare/create-effect-app-v1.0.8...create-effect-app-v1.0.9) (2024-08-22)
 
 
