@@ -1,13 +1,20 @@
 {
 	"name": "@amar4enko/create-effect-app",
-	"version": "1.0.6",
+	"version": "1.0.8",
 	"description": "CLI to start new TS + Effect application in no time",
 	"bin": "build/index.js",
 	"type": "module",
-	"keywords": ["effect", "typescript", "create-app"],
+	"keywords": [
+		"effect",
+		"typescript",
+		"create-app"
+	],
 	"author": "Aleks Marchenko",
 	"license": "ISC",
-	"files": ["build", "README.md"],
+	"files": [
+		"build",
+		"README.md"
+	],
 	"devDependencies": {
 		"@biomejs/biome": "^1.8.3",
 		"husky": "^9.1.5",
