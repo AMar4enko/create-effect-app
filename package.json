@@ -1,32 +1,28 @@
 {
-  "name": "@amar4enko/create-effect-app",
-  "version": "1.0.7",
-  "description": "CLI to start new TS + Effect application in no time",
-  "bin": "index.js",
-  "type": "module",
-  "keywords": [
-    "effect",
-    "typescript",
-    "create-app"
-  ],
-  "author": "Aleks Marchenko",
-  "license": "ISC",
-  "devDependencies": {
-    "@amar4enko/create-effect-app": "1.0.0-rc.10",
-    "@biomejs/biome": "^1.8.3",
-    "husky": "^9.1.5",
-    "lint-staged": "^15.2.9",
-    "tsx": "^4.17.0",
-    "typescript": "^5.4"
-  },
-  "dependencies": {
-    "@effect/cli": "^0.41.2",
-    "@effect/platform": "^0.62.2",
-    "@effect/platform-node": "^0.57.1",
-    "@types/node": "^22.4.1",
-    "effect": "^3.6.5"
-  },
-  "scripts": {
-    "prepare": "husky"
-  }
+	"name": "@amar4enko/create-effect-app",
+	"version": "1.0.6",
+	"description": "CLI to start new TS + Effect application in no time",
+	"bin": "build/index.js",
+	"type": "module",
+	"keywords": ["effect", "typescript", "create-app"],
+	"author": "Aleks Marchenko",
+	"license": "ISC",
+	"files": ["build", "README.md"],
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"husky": "^9.1.5",
+		"lint-staged": "^15.2.9",
+		"tsx": "^4.17.0",
+		"typescript": "^5.4"
+	},
+	"dependencies": {
+		"@effect/cli": "^0.41.2",
+		"@effect/platform": "^0.62.2",
+		"@effect/platform-node": "^0.57.1",
+		"@types/node": "^22.4.1",
+		"effect": "^3.6.5"
+	},
+	"scripts": {
+		"prepare": "husky"
+	}
 }
