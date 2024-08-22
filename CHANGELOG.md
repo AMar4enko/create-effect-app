@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.14](https://github.com/AMar4enko/create-effect-app/compare/create-effect-app-v1.0.13...create-effect-app-v1.0.14) (2024-08-22)
+
+
+### Bug Fixes
+
+* absent template .gitignore ([449e011](https://github.com/AMar4enko/create-effect-app/commit/449e01147d45687f4041349db4ffc845912127cd))
+
 ## [1.0.13](https://github.com/AMar4enko/create-effect-app/compare/create-effect-app-v1.0.12...create-effect-app-v1.0.13) (2024-08-22)
 
 
