@@ -1,10 +1,14 @@
 {
   "name": "@amar4enko/create-effect-app",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.1",
   "description": "CLI to start new TS + Effect application in no time",
   "bin": "index.js",
   "type": "module",
-  "keywords": ["effect", "typescript", "create-app"],
+  "keywords": [
+    "effect",
+    "typescript",
+    "create-app"
+  ],
   "author": "Aleks Marchenko",
   "license": "ISC",
   "devDependencies": {
