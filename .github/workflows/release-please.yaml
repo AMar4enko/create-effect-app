@@ -24,9 +24,11 @@ jobs:
 
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
-      - run: ls -la
+
       - uses: ./.github/build-action
         if: ${{ steps.release.outputs.release_created }}
+
+      - run: npm publish
         env:
           NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
