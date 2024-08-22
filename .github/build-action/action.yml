@@ -1,0 +1,5 @@
+name: Build and publish
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
