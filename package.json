@@ -1,6 +1,6 @@
 {
 	"name": "@amar4enko/create-effect-app",
-	"version": "1.0.11",
+	"version": "1.0.12",
 	"description": "CLI to start new TS + Effect application in no time",
 	"bin": "build/index.js",
 	"type": "module",
