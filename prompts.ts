@@ -25,7 +25,7 @@ export const author = Prompt.text({
 })
 
 export const packages = Prompt.list({
-  message: `List your package names separated by comma`,
+  message: `List your packages separated by comma`,
   delimiter: `,`,
   validate: (val) =>
     checkWorkspaceList(val).pipe(
@@ -36,7 +36,7 @@ export const packages = Prompt.list({
 })
 
 export const linter = Prompt.select({
-  message: `Choose your linter / formatter`,
+  message: `Linter / formatter`,
   choices: [
     { title: `BiomeJS`, value: `biome` as const },
     { title: `ESLint`, value: `eslint` as const },
@@ -49,7 +49,7 @@ export const monorepo = Prompt.confirm({
 })
 
 export const template = Prompt.select({
-  message: `Install Effect packages`,
+  message: `Packages preset`,
   choices: [
     { title: `Skip`, value: `none` as Template },
     { title: `Server app`, value: `server` as Template },
@@ -59,11 +59,11 @@ export const template = Prompt.select({
 })
 
 export const schema = Prompt.confirm({
-  message: `Would you like Schema package to your project?`,
+  message: `Add @effect/schema (validation, serde)?`,
   initial: true,
 })
 
 export const vscode = Prompt.confirm({
-  message: `Add VSCode configuration?`,
+  message: `Add Visual Studio Code configuration?`,
   initial: true,
 })

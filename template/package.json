@@ -25,6 +25,7 @@
     "eslint-plugin-simple-import-sort": "~12.1.0",
     "eslint-plugin-sort-destructure-keys": "~2.0.0",
     "eslint-plugin-unused-imports": "~4.0.0",
+    "husky": "^9.1.5",
     "lint-staged": "^15.2.7",
     "typescript": "^5.4",
     "vitest": "^2.0.5"

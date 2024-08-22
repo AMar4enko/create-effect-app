@@ -1,10 +1,4 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": [
-    "index.ts",
-    "prompts.ts",
-    "./types.ts",
-    "./dependencies.ts",
-    "./package.json"
-  ]
+  "include": ["index.ts", "prompts.ts", "./types.ts", "./dependencies.ts"]
 }

@@ -1,14 +1,14 @@
 import path from "node:path"
+import { dirname } from "node:path"
+import { fileURLToPath } from "node:url"
+
 import { Command } from "@effect/cli"
 import { FileSystem } from "@effect/platform"
 import { NodeContext, NodeRuntime } from "@effect/platform-node"
 import { Effect, FiberRef, Record, flow } from "effect"
 import * as deps from "./dependencies.js"
-import packageJson, { version } from "./package.json"
 import * as prompts from "./prompts.js"
 import { Template } from "./types.js"
-
-type PackageJSON = typeof packageJson
 
 type Args = {
   targetDir: string
@@ -27,6 +27,8 @@ const DependenciesRef = FiberRef.unsafeMake<Dependencies>({
   dependencies: {},
 })
 
+const packageDir = dirname(fileURLToPath(import.meta.url))
+
 const modifyDependencies = (
   what: keyof Dependencies,
   f: (a: Record<string, string>) => Record<string, string>,
@@ -40,8 +42,8 @@ const modifyDependencies = (
     }
   })
 
-const underCwd = path.join.bind(process.cwd())
-const underTemplate = (p: string) => path.join(process.cwd(), `template`, p)
+const fromPackageFolder = (p: string) => path.join(packageDir, p)
+const fromTemplateFolder = (p: string) => path.join(packageDir, `template`, p)
 
 const maybeConfigVSCode = (args: Args) =>
   Effect.gen(function* () {
@@ -52,11 +54,11 @@ const maybeConfigVSCode = (args: Args) =>
       yield* fs.makeDirectory(path.join(args.targetDir, `.vscode`))
       yield* Effect.all([
         fs.copyFile(
-          underTemplate(`.vscode/extensions.json.${args.linter}`),
+          fromTemplateFolder(`.vscode/extensions.json.${args.linter}`),
           path.join(args.targetDir, `.vscode`, `extensions.json`),
         ),
         fs.copyFile(
-          underTemplate(`.vscode/settings.json.${args.linter}`),
+          fromTemplateFolder(`.vscode/settings.json.${args.linter}`),
           path.join(args.targetDir, `.vscode`, `settings.json`),
         ),
       ])
@@ -70,10 +72,16 @@ const setupMonorepo = (args: Args) =>
     const populatePackageDir = (packageName: string) =>
       Effect.gen(function* () {
         const fs = yield* FileSystem.FileSystem
-        const packageDir = path.join(args.targetDir, `packages`, packageName)
+        const packageDir = path.join(
+          args.targetDir,
+          `packages`,
+          packageName,
+          `src`,
+        )
         yield* fs.makeDirectory(packageDir, { recursive: true })
 
-        const newPackageJson: Partial<PackageJSON> = {
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        const newPackageJson: Record<string, any> = {
           name: `@${args.projectName}/${packageName}`,
           author: args.author,
         }
@@ -83,7 +91,7 @@ const setupMonorepo = (args: Args) =>
           JSON.stringify(newPackageJson, undefined, 2),
         )
         yield* fs.copyFile(
-          underTemplate(`package/tsconfig.json`),
+          fromTemplateFolder(`package/tsconfig.json`),
           path.join(packageDir, `tsconfig.json`),
         )
       })
@@ -98,7 +106,7 @@ const setupLinter = ({ linter, targetDir }: Args) =>
     const fs = yield* FileSystem.FileSystem
     if (linter === `biome`) {
       yield* fs.copyFile(
-        underCwd(`template/biome.json`),
+        fromPackageFolder(`template/biome.json`),
         path.join(targetDir, `biome.json`),
       )
 
@@ -108,7 +116,7 @@ const setupLinter = ({ linter, targetDir }: Args) =>
       )
     } else {
       yield* fs.copyFile(
-        underCwd(`template/eslint.config.js`),
+        fromPackageFolder(`template/eslint.config.js`),
         path.join(targetDir, `eslint.config.js`),
       )
       yield* modifyDependencies(
@@ -118,9 +126,9 @@ const setupLinter = ({ linter, targetDir }: Args) =>
     }
 
     yield* Effect.all([
-      fs.copy(underTemplate(`.husky`), path.join(targetDir, `.husky`)),
+      fs.copy(fromTemplateFolder(`.husky`), path.join(targetDir, `.husky`)),
       fs.copyFile(
-        underTemplate(`.lintstagedrc.json.${linter}`),
+        fromTemplateFolder(`.lintstagedrc.json.${linter}`),
         path.join(targetDir, `.lintstagedrc.json`),
       ),
     ])
@@ -146,11 +154,10 @@ const createEffectApp = Command.make(`create-effect-app`, {}, () =>
     const fs = yield* FileSystem.FileSystem
 
     const projectName = yield* prompts.projectName
-    const targetDir = underCwd(projectName)
+    const targetDir = path.join(process.cwd(), projectName)
     const packageJson = yield* Effect.sync(() =>
-      import.meta.resolve(`template/package.json`),
+      path.join(packageDir, `template`, `package.json`),
     ).pipe(
-      Effect.map((path) => path.replace(`file://`, ``)),
       Effect.flatMap(fs.readFileString),
       Effect.flatMap((json) => Effect.try(() => JSON.parse(json))),
     )
@@ -174,7 +181,7 @@ const createEffectApp = Command.make(`create-effect-app`, {}, () =>
       .pipe(
         Effect.zipRight(
           fs.copyFile(
-            underTemplate(`.gitignore`),
+            fromTemplateFolder(`.gitignore`),
             path.join(targetDir, `.gitignore`),
           ),
         ),
@@ -184,9 +191,8 @@ const createEffectApp = Command.make(`create-effect-app`, {}, () =>
       template === `none` ? Effect.void : configureTemplate(template, args)
 
     const rootTsConfig = yield* Effect.sync(() =>
-      import.meta.resolve(`tsconfig.json`),
+      path.join(packageDir, `template`, `tsconfig.json`),
     ).pipe(
-      Effect.map((path) => path.replace(`file://`, ``)),
       Effect.flatMap(fs.readFileString),
       Effect.flatMap((json) => Effect.try(() => JSON.parse(json))),
     )
@@ -202,10 +208,9 @@ const createEffectApp = Command.make(`create-effect-app`, {}, () =>
     const monorepoStep = prompts.monorepo.pipe(
       Effect.andThen((needMonorepo) => {
         return needMonorepo === false
-          ? Effect.void
+          ? fs.makeDirectory(path.join(targetDir, `src`))
           : setupMonorepo(args).pipe(
               Effect.tap((packages) => {
-                console.log(`We're here!`)
                 delete rootTsConfig.include
                 rootTsConfig.references = packages.map((packageName) => {
                   return {
@@ -222,7 +227,7 @@ const createEffectApp = Command.make(`create-effect-app`, {}, () =>
     const tsConfigStep = Effect.suspend(() =>
       Effect.all([
         fs.copyFile(
-          underTemplate(`tsconfig.base.json`),
+          fromTemplateFolder(`tsconfig.base.json`),
           path.join(targetDir, `tsconfig.base.json`),
         ),
         fs.writeFileString(
@@ -263,7 +268,7 @@ const createEffectApp = Command.make(`create-effect-app`, {}, () =>
 
 const cli = Command.run(createEffectApp, {
   name: `Scaffold TypeScript + Effect app`,
-  version: `v${version}`,
+  version: `v1.0.0-rc.4`,
 })
 
 Effect.suspend(() => cli(process.argv)).pipe(
