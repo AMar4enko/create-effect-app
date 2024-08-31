@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.15](https://github.com/AMar4enko/create-effect-app/compare/create-effect-app-v1.0.14...create-effect-app-v1.0.15) (2024-08-31)
+
+
+### Bug Fixes
+
+* populate monorepo packages under package root dir ([42cd8b2](https://github.com/AMar4enko/create-effect-app/commit/42cd8b2722a4d65eb3e61ba821018526839e9dea))
+
 ## [1.0.14](https://github.com/AMar4enko/create-effect-app/compare/create-effect-app-v1.0.13...create-effect-app-v1.0.14) (2024-08-22)
 
 
