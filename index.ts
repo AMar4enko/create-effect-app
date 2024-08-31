@@ -75,10 +75,9 @@ const setupMonorepo = (args: Args) =>
 				const packageDir = path.join(
 					args.targetDir,
 					`packages`,
-					packageName,
-					`src`,
+					packageName
 				)
-				yield* fs.makeDirectory(packageDir, { recursive: true })
+				yield* fs.makeDirectory(path.join(packageDir, `src`), { recursive: true })
 
 				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 				const newPackageJson: Record<string, any> = {
